@@ -45,11 +45,11 @@ Options:
   pydirseq run ... --profile [profile]
   For information on Snakemake profiles see:
   https://snakemake.readthedocs.io/en/stable/executing/cli.html#profiles
- 
+
   RUN EXAMPLES:
   Required:           pydirseq run --bam [file] --gff [file]
   Specify threads:    pydirseq run ... --threads [threads]
-  Disable conda:      pydirseq run ... --no-use-conda 
+  Disable conda:      pydirseq run ... --no-use-conda
   Change defaults:    pydirseq run ... --snake-default="-k --nolock"
   Add Snakemake args: pydirseq run ... --dry-run --keep-going --touch
   Specify targets:    pydirseq run ... all | print_targets
@@ -60,5 +60,3 @@ Options:
 
 # Cite
 Citation is to be added
-
-

@@ -8,7 +8,12 @@ https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
 import os
 import click
 
-from snaketool_utils.cli_utils import OrderedCommands, run_snakemake, copy_config, echo_click
+from snaketool_utils.cli_utils import (
+    OrderedCommands,
+    run_snakemake,
+    copy_config,
+    echo_click,
+)
 
 
 def snake_base(rel_path):
@@ -129,7 +134,7 @@ https://snakemake.readthedocs.io/en/stable/executing/cli.html#profiles
 RUN EXAMPLES:
 Required:           pydirseq run --bam [file] --gff [file]
 Specify threads:    pydirseq run ... --threads [threads]
-Disable conda:      pydirseq run ... --no-use-conda 
+Disable conda:      pydirseq run ... --no-use-conda
 Change defaults:    pydirseq run ... --snake-default="-k --nolock"
 Add Snakemake args: pydirseq run ... --dry-run --keep-going --touch
 Specify targets:    pydirseq run ... all | print_targets

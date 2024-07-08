@@ -20,7 +20,7 @@ rule prep_gff:
     input:
         gff = Gff,
         bam = Bam
-    output: 
+    output:
         gff = f'{Resultdir}/{Lab}.sorted.gff',
         lenfile = f'{Resultdir}/{Lab}.contig2len.tsv'
     log: os.path.join(dirs['logs'], 'prep_gff.log')
@@ -34,7 +34,7 @@ rule prep_gff:
         cat {Lab}.contig.feature_less.add_dummy_feature.gff {Lab}.no_fasta.gff | bedtools sort -i /dev/stdin -faidx {Lab}.contig2len.tsv > {Lab}.sorted.gff
         '''
 
-rule get_cov_dict_f1: 
+rule get_cov_dict_f1:
     input:
         bam = Bam,
         lenfile = f'{Resultdir}/{Lab}.contig2len.tsv',
@@ -42,11 +42,10 @@ rule get_cov_dict_f1:
     output: f'{Resultdir}/{Lab}.f1.d.pickle'
     shell:
         '''
-	cd {Resultdir}
-        samtools view {Sam_filter_flags} -u {Read1_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {input.gff} -s {Bedtools_type_flag} |  python {Scriptdir}/pickle-bedtools-coverage-d.py - {Lab}.f1.d.pickle
+        samtools view {Sam_filter_flags} -u {Read1_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {input.gff} -s {Bedtools_type_flag} |  python {Scriptdir}/pickle-bedtools-coverage-d.py - {Resultdir}/{Lab}.f1.d.pickle
         '''
 
-rule get_cov_dict_f2: 
+rule get_cov_dict_f2:
     input:
         bam = Bam,
         lenfile = f'{Resultdir}/{Lab}.contig2len.tsv',
@@ -54,11 +53,10 @@ rule get_cov_dict_f2:
     output: f'{Resultdir}/{Lab}.f2.d.pickle'
     shell:
         '''
-	cd {Resultdir}
-        samtools view {Sam_filter_flags} -u {Read2_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {Lab}.sorted.gff -s {Bedtools_type_flag} | python {Scriptdir}/pickle-bedtools-coverage-d.py - {Lab}.f2.d.pickle
+        samtools view {Sam_filter_flags} -u {Read2_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {Lab}.sorted.gff -s {Bedtools_type_flag} | python {Scriptdir}/pickle-bedtools-coverage-d.py - {Resultdir}/{Lab}.f2.d.pickle
         '''
 
-rule get_cov_dict_r1: 
+rule get_cov_dict_r1:
     input:
         bam = Bam,
         lenfile = f'{Resultdir}/{Lab}.contig2len.tsv',
@@ -66,8 +64,7 @@ rule get_cov_dict_r1:
     output: f'{Resultdir}/{Lab}.r1.d.pickle'
     shell:
         '''
-	cd {Resultdir}
-        samtools view {Sam_filter_flags} -u {Read1_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {input.gff} -S {Bedtools_type_flag} | python {Scriptdir}/pickle-bedtools-coverage-d.py - {Lab}.r1.d.pickle
+        samtools view {Sam_filter_flags} -u {Read1_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {input.gff} -S {Bedtools_type_flag} | python {Scriptdir}/pickle-bedtools-coverage-d.py - {Resultdir}/{Lab}.r1.d.pickle
         '''
 
 rule get_cov_dict_r2:
@@ -78,8 +75,7 @@ rule get_cov_dict_r2:
     output: f'{Resultdir}/{Lab}.r2.d.pickle'
     shell:
         '''
-	cd {Resultdir}
-        samtools view {Sam_filter_flags} -u {Read2_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {input.gff} -S {Bedtools_type_flag} | python {Scriptdir}/pickle-bedtools-coverage-d.py - {Lab}.r2.d.pickle
+        samtools view {Sam_filter_flags} -u {Read2_flag} {input.bam} | bedtools coverage -sorted -g {input.lenfile} -b /dev/stdin -a {input.gff} -S {Bedtools_type_flag} | python {Scriptdir}/pickle-bedtools-coverage-d.py - {Resultdir}/{Lab}.r2.d.pickle
         '''
 
 rule merge_cov_forward:
@@ -89,7 +85,6 @@ rule merge_cov_forward:
     output: f'{Resultdir}/{Lab}.forward.tsv'
     shell:
         '''
-	cd {Resultdir}
         python {Scriptdir}/merge-bedtools-coverage-d.py {input.f1} {input.r2} > {output}
         '''
 
@@ -100,7 +95,6 @@ rule merge_cov_reverse:
     output: f'{Resultdir}/{Lab}.reverse.tsv'
     shell:
         '''
-	cd {Resultdir}
         python {Scriptdir}/merge-bedtools-coverage-d.py {input.f2} {input.r1} > {output}
         '''
 
@@ -113,7 +107,6 @@ rule merge_cov_both:
     output: f'{Resultdir}/{Lab}.both.tsv'
     shell:
         '''
-	cd {Resultdir}
         python {Scriptdir}/merge-bedtools-coverage-d.py {input.f1} {input.r2} {input.f2} {input.r1} > {output}
         '''
 
@@ -126,9 +119,7 @@ rule finalize:
     output: touch('{Resultdir}/done.get_cds_cov')
     shell:
         '''
-	cd {Resultdir}
-        python {Scriptdir}/merge-bedtools-coverage-forward-reverse.py {input.f} {input.r} {input.both} > {Lab}.final.tsv
+        python {Scriptdir}/merge-bedtools-coverage-forward-reverse.py {input.f} {input.r} {input.both} > {Resultdir}/{Lab}.final.tsv
         # clean up
-        # rm -f {Lab}.*.pickle $Lab.no_fasta.gff {Lab}.contig2len.tsv {Lab}.contig.feature_less.list {Lab}.contig.feature_less.add_dummy_feature.gff  {Lab}.sorted.gff
+        # (cd {Resultdir} && rm -f {Lab}.*.pickle $Lab.no_fasta.gff {Lab}.contig2len.tsv {Lab}.contig.feature_less.list {Lab}.contig.feature_less.add_dummy_feature.gff  {Lab}.sorted.gff)
         '''
-

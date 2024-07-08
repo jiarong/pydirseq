@@ -11,7 +11,7 @@ def get_version():
         )
     ) as f:
         return f.readline().strip()
-    
+
 
 def get_description():
     with open("README.md", "r") as fh:
@@ -54,16 +54,12 @@ setup(
     author_email="pydirseq near gmail",
     data_files=get_data_files(),
     py_modules=["pydirseq"],
-    #install_requires=[
+    # install_requires=[
     #    "snaketool-utils>=0.0.4",
     #    "snakemake>=6.12.2",
     #    "pyyaml>=6.0",
     #    "Click>=8.1.3",
-    #],
-    entry_points={
-        "console_scripts": [
-            "pydirseq=pydirseq.__main__:main"
-        ]
-    },
+    # ],
+    entry_points={"console_scripts": ["pydirseq=pydirseq.__main__:main"]},
     include_package_data=True,
 )
