@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/825543365.svg)](https://zenodo.org/doi/10.5281/zenodo.12683196)
+
 # pydirseq
 
 pydirseq provides gene-wise coverage for metaT and metaG reads mapped genomes/contigs
