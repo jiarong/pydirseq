@@ -20,7 +20,7 @@ def get_description():
 
 
 def get_data_files():
-    data_files = [(".", ["README.md"])]
+    data_files = [(".", ["README.md"]), (".", ["requirements.yaml"])]
     return data_files
 
 
