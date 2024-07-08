@@ -1,0 +1,5 @@
+# Namespaced config file example
+pydirseq:
+    args: # Command line args will be (over)written here at runtime
+        output:
+    # Add customisable config here

@@ -1,0 +1,4 @@
+include pydirseq/pydirseq.LICENSE
+include pydirseq/pydirseq.CITATION
+include pydirseq/pydirseq.VERSION
+recursive-include pydirseq *

@@ -1,0 +1,9 @@
+*.egg-info
+*.snakemake
+*__pycache__
+*.bak
+*.swp
+test/*
+!test/run-test.sh
+todo
+notes
