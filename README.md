@@ -2,7 +2,7 @@
 
 # pydirseq
 
-pydirseq provides gene-wise coverage for metaT and metaG reads mapped genomes/contigs
+Pydirseq provides gene-wise depth and breadth coverage for metaT and metaG reads mapped genomes/contigs.
 
 # Installation
 ```
@@ -64,6 +64,9 @@ Options:
       all             Run everything (default)
       print_targets   List available targets
 ```
+
+# Inspiration
+Pydirseq draw inspiration from [dirseq](https://github.com/wwood/dirseq), which provides read count mapped per gene.
 
 # Cite
 Citation is to be added
