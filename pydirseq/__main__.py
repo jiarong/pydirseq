@@ -171,7 +171,6 @@ def run(bam, gff, output, **kwargs):
     }
 
     # run!
-    print(merge_config)
     run_snakemake(
         # Full path to Snakefile
         snakefile_path=snake_base(os.path.join("workflow", "Snakefile")),
