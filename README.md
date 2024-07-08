@@ -15,10 +15,15 @@ python -m pip install -e .
 
 ## Example
 ```
+# input files required:
+#   1) bam file from read mapping to genome/contigs
+#   2) gff file from ORF prediction tools such as prodigal
 pydirseq run --bam data/final.bam --gff data/combined_reference.gff all
 ```
+See the final outupt file at `pydirseq.out/results/SS.final.tsv`.
 
-## full help
+
+## Full help
 ```
 $ pydirseq run -h
 Usage: pydirseq run [OPTIONS] [SNAKE_ARGS]...
